@@ -3,36 +3,36 @@ import Services from '../services/appRequest'
 
 const store = createStore({
     state: () => ({
-        user:{
+        user: {
+            nome: '',
             email: '',
-            password: ''
+            password: '',
+            role: ''
         },
         token: '',
     }),
     getters: {},
     mutations: {
-        AuthSet(state, payload){
-            state.token = payload.acess_token
+        AuthSet(state, payload) {
+            state.token = payload.access_token
             state.user = payload.user
         }
     },
     actions: {
-        async handleSubmitLogin(context, user){
+        async handleSubmitLogin(context, user) {
             await Services.loginUser({
                 email: user.email,
                 password: user.password
             })
-            .then(res =>{
-                if(res.data.acess_token){
-                    localStorage.setItem('token', res.data.acess_token)
-                    context.commit('authSet', res.data)
-
-                    window.location.replace('/dashboard')
-                }
-            })
-        }
+                .then(res => {
+                    if (res.data.access_token) {
+                        localStorage.setItem('token', res.data.access_token)
+                        context.commit('authSet', res.data)
+                        window.location.replace('/dashboard')
+                    }
+                })
+        },
     },
-
 });
 
 export default store;

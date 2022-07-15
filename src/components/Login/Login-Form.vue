@@ -1,5 +1,6 @@
 <template>
-  <div class="form-group flex flex-column align-content-center gap-5" @submit.prevent="handleSubmitLogin">
+<form @submit.prevent="handleSubmitLogin">
+  <div class="form-group flex flex-column align-content-center gap-5">
     <div class="flex justify-content-center align-content-center logo">
       <img src="@/assets/logo.svg" alt="logo" />
     </div>
@@ -22,9 +23,10 @@
       />
     </div>
     <div class="flex justify-content-center align-content-center btn-field">
-      <button class="btn-login">Login</button>
+      <button class="btn-login" type="submit">Login</button>
     </div>
   </div>
+  </form>
 </template>
 
 <script>

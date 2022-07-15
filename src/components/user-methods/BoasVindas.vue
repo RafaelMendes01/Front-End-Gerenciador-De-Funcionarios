@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-content-center align-items-center geral-field">
     <div class="content-field flex justify-content-center align-items-center flex-column">
-       <h2>Bem Vindo Usuario!!! 😃</h2>
+       <h2>Bem Vindo Usuario!!!😃</h2>
        <h4>Para realizar suas operações clique no botao do canto superior esquerdo da tela</h4>
     </div>
   </div>

@@ -1,13 +1,28 @@
 <template>
   <div class="flex justify-content-center align-items-center geral-field">
     <div class="content-field flex justify-content-center align-items-center flex-column">
-       <h2>aqui ficara a lista de usuarios</h2>
+       <div v-for="usuario of Usuarios" :key="usuario.email">
+        <p>{{usuario.nome}},{{usuario.email}}, {{usuario.role}}</p>
+       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import usuarios from '../../services/appRequest'
+export default {
+  data() {
+    return {
+      Usuarios:[]
+    }
+
+  },
+  mounted(){
+    usuarios.ListUsers().then(resposta =>{
+     this.Usuarios = resposta.data;
+    })
+  }
+};
 </script>
 
 <style scoped>
