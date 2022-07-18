@@ -29,6 +29,11 @@ const routes = [
         path: '/dashboard/ListarUm',
         name: 'ListarUm',
         component: () => import('../components/user-methods/ListarUm.vue'),
+      },
+      {
+        path: '/dashboard/DeletarUm',
+        name: 'DeletarUm',
+        component: () => import('../components/user-methods/DeletarUm.vue'),
       }
     ]
   },

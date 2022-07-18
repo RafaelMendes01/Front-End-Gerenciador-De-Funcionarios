@@ -12,5 +12,8 @@ export default{
     },
     ListOne: (email: any) =>{
         return http.get(`funcionarios/${email}`)
+    },
+    DeleteOne: (email: any) =>{
+        return http.delete(`funcionarios/${email}`)
     }
 }
