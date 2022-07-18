@@ -6,5 +6,8 @@ export default{
     },
     ListUsers: () =>{
         return http.get('funcionarios')
+    },
+    CreateUser: (data: any) =>{
+        return http.post('funcionarios', data)
     }
 }

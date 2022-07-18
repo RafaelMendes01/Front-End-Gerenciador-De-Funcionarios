@@ -43,7 +43,7 @@ export default {
     onColReorder() {
       this.$toast.add({
         severity: "success",
-        summary: "Column Reordered",
+        summary: "Coluna reordenada",
         life: 8080,
       });
     },

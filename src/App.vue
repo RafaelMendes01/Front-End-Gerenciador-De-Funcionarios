@@ -1,4 +1,5 @@
 <template>
+    <PToast />
          <router-view></router-view>
 </template>
 
