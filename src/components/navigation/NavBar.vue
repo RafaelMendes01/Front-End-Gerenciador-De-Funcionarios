@@ -5,7 +5,7 @@
         <router-link to="/dashboard/CriarUsuario" class="link"><i class="pi pi-user-plus icon mr-2 icon"></i>Criar</router-link>
         <router-link to="/dashboard/ListarTodos" class="link"><i class="pi pi-list icon mr-2 icon"></i>Listar Todos</router-link>
         <router-link to="/dashboard/ListarUm" class="link"><i class="pi pi-search icon mr-2 icon"></i>Listar Um</router-link>
-        <router-link to="#" class="link"><i class="pi pi-user-edit icon mr-2 icon"></i>Atualizar</router-link>
+        <router-link to="/dashboard/AtualizarUsuario" class="link"><i class="pi pi-user-edit icon mr-2 icon"></i>Atualizar</router-link>
         <router-link to="/dashboard/DeletarUm" class="link"><i class="pi pi-trash icon mr-2 icon"></i>Deletar</router-link>
       </div>
     </SideBar>

@@ -34,6 +34,11 @@ const routes = [
         path: '/dashboard/DeletarUm',
         name: 'DeletarUm',
         component: () => import('../components/user-methods/DeletarUm.vue'),
+      },
+      {
+        path: '/dashboard/AtualizarUsuario',
+        name: 'AtualizarUsuario',
+        component: () => import('../components/user-methods/AtualizarUsuario.vue'),
       }
     ]
   },

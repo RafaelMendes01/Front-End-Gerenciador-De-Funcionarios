@@ -15,5 +15,8 @@ export default{
     },
     DeleteOne: (email: any) =>{
         return http.delete(`funcionarios/${email}`)
+    },
+    UpdateOne: (email: any, data:any) =>{
+        return http.patch(`funcionarios/${email}`, data)
     }
 }

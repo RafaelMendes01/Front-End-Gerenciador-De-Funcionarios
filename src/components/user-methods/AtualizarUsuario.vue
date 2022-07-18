@@ -1,13 +1,51 @@
 <template>
-    <div class="flex justify-content-center align-items-center geral-field" @submit.prevent="accept()">
+  <div
+    class="flex justify-content-center align-items-center geral-field"
+    @submit.prevent="accept()"
+  >
+    <div class="content-field flex justify-content-center">
       <div
         class="
+          form
           content-field
           flex
           justify-content-center
           align-items-center
           flex-column
+          h-full
+          border-right-1
+          surface-border
+          border-noround-right
           gap-3
+        "
+      >
+        <span class="p-float-label p-input-icon-left">
+          <i class="pi pi-envelope" />
+          <InputText
+            type="text"
+            placeholder="Digite o email do usuario"
+            class="p-inputtext-lg"
+            v-model="oldEmail"
+          />
+        </span>
+        <ConfirmDialog></ConfirmDialog>
+        <BtnButton
+          label="Atualizar"
+          icon="pi pi-pencil"
+          iconPos="right"
+          class="p-button-warning p-button-rounded p-button-sm"
+          @click="updateUser()"
+        />
+      </div>
+      <div
+        class="
+          data
+          content-field
+          flex
+          justify-content-center
+          align-items-center
+          flex-column
+          gap-2
         "
       >
         <span class="p-float-label p-input-icon-left">
@@ -15,7 +53,7 @@
           <InputText
             id="username"
             type="text"
-            placeholder="Digite seu nome"
+            placeholder="Novo nome"
             class="p-inputtext-lg"
             v-model="User.name"
           />
@@ -25,7 +63,7 @@
           <InputText
             id="email"
             type="email"
-            placeholder="Digite seu email"
+            placeholder="Novo email"
             class="p-inputtext-lg"
             v-model="User.email"
           />
@@ -35,29 +73,20 @@
           <InputText
             id="password"
             type="password"
-            placeholder="Digite sua senha"
+            placeholder="Nova senha"
             class="p-inputtext-lg"
             v-model="User.password"
           />
         </span>
-        <div class="flex gap-3">
-          <PDropdown
-            v-model="User.role"
-            :options="roles"
-            optionLabel="name"
-            placeholder="Selecione o cargo"
-          />
-          <ConfirmDialog></ConfirmDialog>
-          <BtnButton
-            @click="create()"
-            label="Criar Usuario"
-            icon="pi pi-check"
-            iconPos="right"
-            class="p-button-success p-button-rounded p-button-sm"
-          />
-        </div>
+        <PDropdown
+          v-model="User.role"
+          :options="roles"
+          optionLabel="name"
+          placeholder="Novo cargo"
+        />
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -66,6 +95,7 @@ export default {
   data() {
     return {
       roles: [{ name: "user" }, { name: "admin" }],
+      oldEmail: "",
       User: {
         name: "",
         email: "",
@@ -75,7 +105,7 @@ export default {
     };
   },
   methods: {
-    create() {
+    updateUser() {
       this.$confirm.require({
         message: "realmente deseja continuar?",
         header: "Confirmação",
@@ -87,11 +117,11 @@ export default {
             password: this.User.password,
             role: this.User.role.name,
           };
-          usuariosRequest.CreateUser(userdata).then((res) => {
-              this.$toast.add({
+          usuariosRequest.UpdateOne(this.oldEmail, userdata).then((res) => {
+            this.$toast.add({
               severity: "success",
               summary: "Confirmado",
-              detail: "Usuario criado com sucesso",
+              detail: "Usuario alterado com sucesso",
               life: 3000,
             });
           });
@@ -100,7 +130,7 @@ export default {
           this.$toast.add({
             severity: "error",
             summary: "Cancelado",
-            detail: "Usuario não foi criado",
+            detail: "Usuario não foi alterado",
             life: 3000,
           });
         },
