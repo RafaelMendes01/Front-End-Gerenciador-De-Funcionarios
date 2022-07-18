@@ -24,6 +24,11 @@ const routes = [
         path: '/dashboard/ListarTodos',
         name: 'ListarTodos',
         component: () => import('../components/user-methods/ListarTodos.vue'),
+      },
+      {
+        path: '/dashboard/ListarUm',
+        name: 'ListarUm',
+        component: () => import('../components/user-methods/ListarUm.vue'),
       }
     ]
   },

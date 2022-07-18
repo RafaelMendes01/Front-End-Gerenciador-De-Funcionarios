@@ -9,5 +9,8 @@ export default{
     },
     CreateUser: (data: any) =>{
         return http.post('funcionarios', data)
+    },
+    ListOne: (email: any) =>{
+        return http.get(`funcionarios/${email}`)
     }
 }
