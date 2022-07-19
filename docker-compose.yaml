@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    container_name: front-end
+    tty: true
+    networks: 
+      - projeto-gerenciador-funcionarios
+    entrypoint: npm run serve
+    volumes: 
+      - ./:/usr/front-end-sistema-gerenciador-de-funcionarios/app
+    ports:
+      - 8080:8080
+
+networks:
+  projeto-gerenciador-funcionarios:
+    driver: bridge
