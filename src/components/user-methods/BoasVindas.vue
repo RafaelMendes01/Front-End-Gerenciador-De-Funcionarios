@@ -1,14 +1,20 @@
 <template>
   <div class="flex justify-content-center align-items-center geral-field">
     <div class="content-field flex justify-content-center align-items-center flex-column">
-       <h2>Bem Vindo Usuario!!!😃</h2>
+       <h2>Bem Vindo {{email}}!!!😃</h2>
        <h4>Para realizar suas operações clique no botao do canto superior esquerdo da tela</h4>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+    return{
+      email: localStorage.getItem('email')
+    }
+  }
+};
 </script>
 
 <style scoped>

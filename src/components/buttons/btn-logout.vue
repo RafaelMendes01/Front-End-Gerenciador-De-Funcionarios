@@ -15,6 +15,7 @@ export default {
   methods: {
     Logout() {
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
          window.location.replace('/');
     },
   },

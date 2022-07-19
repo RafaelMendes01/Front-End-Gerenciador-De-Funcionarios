@@ -41,8 +41,21 @@ export default {
   },
   methods: {
     handleSubmitLogin(){
-      this.$store.dispatch('handleSubmitLogin', this.user)
-    }
+      const email = this.user.email;
+      const lastEmail = localStorage.getItem('email')
+      if(email !== lastEmail){
+        localStorage.setItem('email', this.user.email)
+        this.$store.dispatch('handleSubmitLogin', this.user)
+      }
+      else{
+        this.$toast.add({
+              severity: "error",
+              summary: `Erro`,
+              detail: "Esse usuario ja esta logado",
+              life: 3000,
+            });
+      }
+    },
   },
 };
 </script>
