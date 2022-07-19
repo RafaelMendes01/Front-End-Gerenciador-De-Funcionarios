@@ -13,6 +13,7 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import ConfirmDialog from 'primevue/confirmdialog';
 import Toast from 'primevue/toast';
+import Tooltip from 'primevue/tooltip';
 import 'bootstrap/dist/css/bootstrap.css'
 import '/node_modules/primeflex/primeflex.css'
 import 'primevue/resources/themes/lara-dark-purple/theme.css'     
@@ -33,6 +34,7 @@ app.component('PColumn', Column)
 app.component('ConfirmDialog', ConfirmDialog)
 app.component('PToast', Toast)
 app.component('PDropdown', Dropdown)
+app.directive('tooltip', Tooltip);
 
 app.mount('#app')
 

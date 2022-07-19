@@ -1,5 +1,17 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, RouteLocation } from 'vue-router'
+const authGuard = () => (to: RouteLocation, from: RouteLocation, next:any) => {
+  if (localStorage.getItem("token") || "") {
+    next();
+  } else {
+    next("/");
+  }
+};
 const routes = [
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'user-redirect',
+    component: () => import('../Views/User-Login.vue')
+  },
   {
     path: '/',
     name: 'user-Login',
@@ -8,11 +20,13 @@ const routes = [
   {
     path: '/dashboard',
     name: 'DashBoard',
+    beforeEnter: authGuard(),
     component: () => import('../Views/User-DashBoard.vue'),
     children: [
       {
         path: '/dashboard/',
         name: 'BoasVindas',
+        beforeEnter: authGuard(),
         component: () => import('../components/user-methods/BoasVindas.vue'),
       },
       {
@@ -23,21 +37,25 @@ const routes = [
       {
         path: '/dashboard/ListarTodos',
         name: 'ListarTodos',
+        beforeEnter: authGuard(),
         component: () => import('../components/user-methods/ListarTodos.vue'),
       },
       {
         path: '/dashboard/ListarUm',
         name: 'ListarUm',
+        beforeEnter: authGuard(),
         component: () => import('../components/user-methods/ListarUm.vue'),
       },
       {
         path: '/dashboard/DeletarUm',
         name: 'DeletarUm',
+        beforeEnter: authGuard(),
         component: () => import('../components/user-methods/DeletarUm.vue'),
       },
       {
         path: '/dashboard/AtualizarUsuario',
         name: 'AtualizarUsuario',
+        beforeEnter: authGuard(),
         component: () => import('../components/user-methods/AtualizarUsuario.vue'),
       }
     ]

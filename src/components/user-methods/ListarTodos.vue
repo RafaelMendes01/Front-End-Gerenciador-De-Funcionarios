@@ -35,9 +35,20 @@ export default {
     };
   },
   mounted() {
-    usuarios.ListUsers().then((resposta) => {
-      this.Usuarios = resposta.data;
-    });
+    const authorization = `Bearer ${localStorage.getItem("token")}`;
+    usuarios
+      .ListUsers({ headers: { Authorization: authorization } })
+      .then((resposta) => {
+        this.Usuarios = resposta.data;
+      })
+      .catch((Error) => {
+        this.$toast.add({
+          severity: "error",
+          summary: `${Error}`,
+          detail: "Requisição falhou",
+          life: 3000,
+        });
+      });
   },
   methods: {
     onColReorder() {

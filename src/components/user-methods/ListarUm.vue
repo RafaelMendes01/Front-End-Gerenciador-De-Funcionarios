@@ -54,7 +54,7 @@
         responsiveLayout="scroll"
         :reorderableColumns="true"
         @columnReorder="onColReorder"
-        :rows="1"
+        :row="1"
       >
         <PColumn field="nome" header="nome"></PColumn>
         <PColumn field="email" header="email"></PColumn>
@@ -83,9 +83,18 @@ export default {
       });
     },
     ListarUm() {
-      usuarios.ListOne(this.UserEmail).then((resposta) => {
+      const authorization = `Bearer ${localStorage.getItem('token')}`
+      usuarios.ListOne( { headers: { Authorization: authorization } },this.UserEmail).then((resposta) => {
         this.Usuario = resposta
-      });
+      })
+      .catch((Error) =>{
+              this.$toast.add({
+              severity: "error",
+              summary: `${Error}`,
+              detail: "Requisição falhou",
+              life: 3000,
+            });
+          })
     },
   },
 };

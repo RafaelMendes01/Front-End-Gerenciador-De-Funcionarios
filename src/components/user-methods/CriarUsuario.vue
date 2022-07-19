@@ -87,14 +87,23 @@ export default {
             password: this.User.password,
             role: this.User.role.name,
           };
-          usuariosRequest.CreateUser(userdata).then((res) => {
+          const authorization = `Bearer ${localStorage.getItem('token')}`
+          usuariosRequest.CreateUser({ headers: { Authorization: authorization } }, userdata).then((res) => {
               this.$toast.add({
               severity: "success",
               summary: "Confirmado",
               detail: "Usuario criado com sucesso",
               life: 3000,
             });
-          });
+          })
+          .catch((Error) =>{
+              this.$toast.add({
+              severity: "error",
+              summary: `${Error}`,
+              detail: "Requisição falhou",
+              life: 3000,
+            });
+          })
         },
         reject: () => {
           this.$toast.add({

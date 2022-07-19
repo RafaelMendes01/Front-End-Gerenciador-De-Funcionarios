@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-field">
+  <div class="navbar-field flex">
     <SideBar v-model:visible="visibleLeft">
       <div class="flex flex-column mt-3 ml-5">
         <router-link to="/dashboard/CriarUsuario" class="link"><i class="pi pi-user-plus icon mr-2 icon"></i>Criar</router-link>
@@ -15,11 +15,16 @@
       class="logo cursor-pointer p-2"
       @click="visibleLeft = true"
     />
+     <btn-logout />
   </div>
 </template>
 
 <script>
+import LogButton from '../buttons/btn-logout.vue'
 export default {
+  components:{
+    'btn-logout': LogButton
+  },
   data() {
     return {
       visibleLeft: false,

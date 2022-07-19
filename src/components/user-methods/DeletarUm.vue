@@ -46,14 +46,23 @@ export default {
         header: "Confirmação",
         icon: "pi pi-exclamation-triangle",
         accept: () => {
-          usuariosRequest.DeleteOne(this.email).then((res) => {
+          const authorization = `Bearer ${localStorage.getItem('token')}`
+          usuariosRequest.DeleteOne( { headers: { Authorization: authorization } },this.email).then((res) => {
             this.$toast.add({
               severity: "success",
               summary: "Confirmado",
               detail: "Usuario deletado com sucesso",
               life: 3000,
             });
-          });
+          })
+          .catch((Error) =>{
+              this.$toast.add({
+              severity: "error",
+              summary: `${Error}`,
+              detail: "Requisição falhou",
+              life: 3000,
+            });
+          })
         },
         reject: () => {
           this.$toast.add({

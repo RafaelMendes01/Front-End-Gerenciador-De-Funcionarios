@@ -1,22 +1,22 @@
-import {http} from './appConfig';
+import { http } from './appConfig';
 
-export default{
+export default {
     loginUser: (data: any) => {
         return http.post('login', data);
     },
-    ListUsers: () =>{
-        return http.get('funcionarios')
+    ListUsers: (token: any) => {
+        return http.get('funcionarios', token)
     },
-    CreateUser: (data: any) =>{
-        return http.post('funcionarios', data)
+    CreateUser: (token: any, data: any) => {
+        return http.post('funcionarios', data, token)
     },
-    ListOne: (email: any) =>{
-        return http.get(`funcionarios/${email}`)
+    ListOne: (token: any, email: any) => {
+        return http.get(`funcionarios/${email}`, token)
     },
-    DeleteOne: (email: any) =>{
-        return http.delete(`funcionarios/${email}`)
+    DeleteOne: (token: any, email: any) => {
+        return http.delete(`funcionarios/${email}`, token)
     },
-    UpdateOne: (email: any, data:any) =>{
-        return http.patch(`funcionarios/${email}`, data)
+    UpdateOne: (token: any, email: any, data: any) => {
+        return http.patch(`funcionarios/${email}`, data, token)
     }
 }
