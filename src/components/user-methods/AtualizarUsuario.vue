@@ -117,23 +117,45 @@ export default {
             password: this.User.password,
             role: this.User.role.name,
           };
-          const authorization = `Bearer ${localStorage.getItem('token')}`
-          usuariosRequest.UpdateOne( { headers: { Authorization: authorization } },this.oldEmail, userdata).then((res) => {
-            this.$toast.add({
-              severity: "success",
-              summary: "Confirmado",
-              detail: "Usuario alterado com sucesso",
-              life: 3000,
-            });
-          })
-          .catch((Error) =>{
+          const authorization = `Bearer ${localStorage.getItem("token")}`;
+          usuariosRequest
+            .UpdateOne(
+              { headers: { Authorization: authorization } },
+              this.oldEmail,
+              userdata
+            )
+            .then((res) => {
               this.$toast.add({
-              severity: "error",
-              summary: `${Error}`,
-              detail: "Requisição falhou",
-              life: 3000,
+                severity: "success",
+                summary: "Confirmado",
+                detail: "Usuario alterado com sucesso",
+                life: 3000,
+              });
+            })
+            .catch((Error) => {
+              if (Error.code == "ERR_NETWORK") {
+                this.$toast.add({
+                  severity: "error",
+                  summary: `Problemas Tecnicos `,
+                  detail: "Servidor Indisponivel",
+                  life: 3000,
+                });
+              } else if (Error.response.data.statusCode == "401") {
+                this.$toast.add({
+                  severity: "error",
+                  summary: `${Error.response.data.statusCode}`,
+                  detail: `${Error.response.data.message}`,
+                  life: 3000,
+                });
+              } else {
+                this.$toast.add({
+                  severity: "error",
+                  summary: `${Error.code}`,
+                  detail: `${Error}`,
+                  life: 3000,
+                });
+              }
             });
-          })
         },
         reject: () => {
           this.$toast.add({

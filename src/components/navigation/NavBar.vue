@@ -15,15 +15,15 @@
       class="logo cursor-pointer p-2"
       @click="visibleLeft = true"
     />
-     <btn-logout />
+    <user-avatar />
   </div>
 </template>
 
 <script>
-import LogButton from '../buttons/btn-logout.vue'
+import UserAvatar from '../user/user-avatar.vue'
 export default {
   components:{
-    'btn-logout': LogButton
+    'user-avatar': UserAvatar
   },
   data() {
     return {
