@@ -1,5 +1,5 @@
 <template>
-<form ></form>
+  <form></form>
   <div
     class="flex justify-content-center align-items-center geral-field"
     @submit.prevent="ListarUm()"
@@ -48,18 +48,18 @@
           card
         "
       >
-      <DataTable
-        :value="Usuario"
-        showGridlines
-        responsiveLayout="scroll"
-        :reorderableColumns="true"
-        @columnReorder="onColReorder"
-        :row="1"
-      >
-        <PColumn field="nome" header="nome"></PColumn>
-        <PColumn field="email" header="email"></PColumn>
-        <PColumn field="role" header="cargo"></PColumn>
-      </DataTable>
+        <DataTable
+          :value="Usuario"
+          showGridlines
+          responsiveLayout="scroll"
+          :reorderableColumns="true"
+          @columnReorder="onColReorder"
+          :row="1"
+        >
+          <PColumn field="nome" header="nome"></PColumn>
+          <PColumn field="email" header="email"></PColumn>
+          <PColumn field="role" header="cargo"></PColumn>
+        </DataTable>
       </div>
     </div>
   </div>
@@ -70,8 +70,8 @@ import usuarios from "../../services/appRequest";
 export default {
   data() {
     return {
-        UserEmail: '',
-        Usuario: ''
+      UserEmail: "",
+      Usuario: "",
     };
   },
   methods: {
@@ -83,18 +83,36 @@ export default {
       });
     },
     ListarUm() {
-      const authorization = `Bearer ${localStorage.getItem('token')}`
-      usuarios.ListOne( { headers: { Authorization: authorization } },this.UserEmail).then((resposta) => {
-        this.Usuario = resposta
-      })
-      .catch((Error) =>{
-              this.$toast.add({
+      const authorization = `Bearer ${localStorage.getItem("token")}`;
+      usuarios
+        .ListOne({ headers: { Authorization: authorization } }, this.UserEmail)
+        .then((resposta) => {
+          this.Usuario = resposta;
+        })
+        .catch((Error) => {
+          if (Error.code == "ERR_NETWORK") {
+            this.$toast.add({
               severity: "error",
-              summary: `${Error}`,
-              detail: "Requisição falhou",
+              summary: `Problemas Tecnicos `,
+              detail: "Servidor Indisponivel",
               life: 3000,
             });
-          })
+          } else if (Error.response.data.statusCode == "401") {
+            this.$toast.add({
+              severity: "error",
+              summary: `${Error.response.data.statusCode}`,
+              detail: `${Error.response.data.message}`,
+              life: 3000,
+            });
+          } else {
+            this.$toast.add({
+              severity: "error",
+              summary: `${Error.code}`,
+              detail: `${Error}`,
+              life: 3000,
+            });
+          }
+        });
     },
   },
 };

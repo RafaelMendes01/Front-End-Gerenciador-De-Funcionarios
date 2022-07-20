@@ -97,12 +97,28 @@ export default {
             });
           })
           .catch((Error) =>{
+            if(Error.code == 'ERR_NETWORK' ){
               this.$toast.add({
               severity: "error",
-              summary: `${Error}`,
-              detail: "Requisição falhou",
+              summary: `Problemas Tecnicos `,
+              detail: "Servidor Indisponivel",
               life: 3000,
-            });
+            })}
+            else if(Error.response.data.statusCode == '401'){
+            this.$toast.add({
+              severity: "error",
+              summary: `${Error.response.data.statusCode}`,
+              detail: `${Error.response.data.message}`,
+              life: 3000,
+            })}
+            else {
+              this.$toast.add({
+              severity: "error",
+              summary: `${Error.code}`,
+              detail: `${Error}`,
+              life: 3000,
+             })}
+            
           })
         },
         reject: () => {
