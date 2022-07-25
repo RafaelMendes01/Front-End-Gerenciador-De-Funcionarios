@@ -1,63 +1,66 @@
 <template>
-    <div class="flex justify-content-center align-items-center geral-field" @submit.prevent="accept()">
-      <div
-        class="
-          content-field
-          flex
-          justify-content-center
-          align-items-center
-          flex-column
-          gap-3
-        "
-      >
-        <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-user" />
-          <InputText
-            id="username"
-            type="text"
-            placeholder="Digite seu nome"
-            class="p-inputtext-lg"
-            v-model="User.name"
-          />
-        </span>
-        <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-envelope" />
-          <InputText
-            id="email"
-            type="email"
-            placeholder="Digite seu email"
-            class="p-inputtext-lg"
-            v-model="User.email"
-          />
-        </span>
-        <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-key" />
-          <InputText
-            id="password"
-            type="password"
-            placeholder="Digite sua senha"
-            class="p-inputtext-lg"
-            v-model="User.password"
-          />
-        </span>
-        <div class="flex gap-3">
-          <PDropdown
-            v-model="User.role"
-            :options="roles"
-            optionLabel="name"
-            placeholder="Selecione o cargo"
-          />
-          <ConfirmDialog></ConfirmDialog>
-          <BtnButton
-            @click="create()"
-            label="Criar Usuario"
-            icon="pi pi-check"
-            iconPos="right"
-            class="p-button-success p-button-rounded p-button-sm"
-          />
-        </div>
+  <div
+    class="flex justify-content-center align-items-center geral-field"
+    @submit.prevent="accept()"
+  >
+    <div
+      class="
+        content-field
+        flex
+        justify-content-center
+        align-items-center
+        flex-column
+        gap-3
+      "
+    >
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-user" />
+        <InputText
+          id="username"
+          type="text"
+          placeholder="Digite seu nome"
+          class="p-inputtext-lg"
+          v-model="User.name"
+        />
+      </span>
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-envelope" />
+        <InputText
+          id="email"
+          type="email"
+          placeholder="Digite seu email"
+          class="p-inputtext-lg"
+          v-model="User.email"
+        />
+      </span>
+      <span class="p-float-label p-input-icon-left">
+        <i class="pi pi-key" />
+        <InputText
+          id="password"
+          type="password"
+          placeholder="Digite sua senha"
+          class="p-inputtext-lg"
+          v-model="User.password"
+        />
+      </span>
+      <div class="flex gap-3">
+        <PDropdown
+          v-model="User.role"
+          :options="roles"
+          optionLabel="name"
+          placeholder="Selecione o cargo"
+        />
+        <ConfirmDialog></ConfirmDialog>
+        <BtnButton
+          @click="create()"
+          label="Criar Usuario"
+          icon="pi pi-check"
+          iconPos="right"
+          class="p-button-success p-button-rounded p-button-sm"
+        />
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -72,8 +75,10 @@ export default {
         password: "",
         role: "",
       },
+      getEmail: localStorage.getItem('email')
     };
   },
+
   methods: {
     create() {
       this.$confirm.require({
@@ -87,39 +92,41 @@ export default {
             password: this.User.password,
             role: this.User.role.name,
           };
-          const authorization = `Bearer ${localStorage.getItem('token')}`
-          usuariosRequest.CreateUser({ headers: { Authorization: authorization } }, userdata).then((res) => {
+          const authorization = `Bearer ${localStorage.getItem("token")}`;
+          usuariosRequest
+            .CreateUser({ headers: { Authorization: authorization } }, userdata)
+            .then((res) => {
               this.$toast.add({
-              severity: "success",
-              summary: "Confirmado",
-              detail: "Usuario criado com sucesso",
-              life: 3000,
+                severity: "success",
+                summary: "Confirmado",
+                detail: "Usuario criado com sucesso",
+                life: 3000,
+              });
+            })
+            .catch((Error) => {
+              if (Error.code == "ERR_NETWORK") {
+                this.$toast.add({
+                  severity: "error",
+                  summary: `Problemas Tecnicos `,
+                  detail: "Servidor Indisponivel",
+                  life: 3000,
+                });
+              } else if (Error.response.data.statusCode == "401") {
+                this.$toast.add({
+                  severity: "error",
+                  summary: `${Error.response.data.statusCode}`,
+                  detail: `${Error.response.data.message}`,
+                  life: 3000,
+                });
+              } else {
+                this.$toast.add({
+                  severity: "error",
+                  summary: `${Error.code}`,
+                  detail: `${Error}`,
+                  life: 3000,
+                });
+              }
             });
-          })
-          .catch((Error) =>{
-            if(Error.code == 'ERR_NETWORK' ){
-              this.$toast.add({
-              severity: "error",
-              summary: `Problemas Tecnicos `,
-              detail: "Servidor Indisponivel",
-              life: 3000,
-            })}
-            else if(Error.response.data.statusCode == '401'){
-            this.$toast.add({
-              severity: "error",
-              summary: `${Error.response.data.statusCode}`,
-              detail: `${Error.response.data.message}`,
-              life: 3000,
-            })}
-            else {
-              this.$toast.add({
-              severity: "error",
-              summary: `${Error.code}`,
-              detail: `${Error}`,
-              life: 3000,
-             })}
-            
-          })
         },
         reject: () => {
           this.$toast.add({

@@ -28,45 +28,47 @@
 
 <script>
 import usuarios from "../../services/appRequest";
+import { SocketModule } from "@/services/Socket";
 export default {
   data() {
     return {
       Usuarios: [],
+      socketService: SocketModule.connect(),
     };
   },
-  mounted() {
-    const authorization = `Bearer ${localStorage.getItem("token")}`;
-    usuarios
-      .ListUsers({ headers: { Authorization: authorization } })
-      .then((resposta) => {
-        this.Usuarios = resposta.data;
-      })
-      .catch((Error) => {
-        if (Error.code == "ERR_NETWORK") {
-          this.$toast.add({
-            severity: "error",
-            summary: `Problemas Tecnicos `,
-            detail: "Servidor Indisponivel",
-            life: 3000,
-          });
-        } else if (Error.response.data.statusCode == "401") {
-          this.$toast.add({
-            severity: "error",
-            summary: `${Error.response.data.statusCode}`,
-            detail: `${Error.response.data.message}`,
-            life: 3000,
-          });
-        } else {
-          this.$toast.add({
-            severity: "error",
-            summary: `${Error.code}`,
-            detail: `${Error}`,
-            life: 3000,
-          });
-        }
-      });
-  },
   methods: {
+    ListarTodos() {
+      const authorization = `Bearer ${localStorage.getItem("token")}`;
+      usuarios
+        .ListUsers({ headers: { Authorization: authorization } })
+        .then((resposta) => {
+          this.Usuarios = resposta.data;
+        })
+        .catch((Error) => {
+          if (Error.code == "ERR_NETWORK") {
+            this.$toast.add({
+              severity: "error",
+              summary: `Problemas Tecnicos `,
+              detail: "Servidor Indisponivel",
+              life: 3000,
+            });
+          } else if (Error.response.data.statusCode == "401") {
+            this.$toast.add({
+              severity: "error",
+              summary: `${Error.response.data.statusCode}`,
+              detail: `${Error.response.data.message}`,
+              life: 3000,
+            });
+          } else {
+            this.$toast.add({
+              severity: "error",
+              summary: `${Error.code}`,
+              detail: `${Error}`,
+              life: 3000,
+            });
+          }
+        });
+    },
     onColReorder() {
       this.$toast.add({
         severity: "success",
@@ -74,6 +76,36 @@ export default {
         life: 8080,
       });
     },
+  },
+  mounted() {
+    this.ListarTodos();
+    this.socketService.registerListener("new-user", "new-user", () => {
+      this.$toast.add({
+        severity: "warn",
+        summary: `aviso`,
+        detail: `um novo usuario foi criado`,
+        life: 3000,
+      });
+      this.ListarTodos();
+    });
+    this.socketService.registerListener("removed-user", "removed-user", () => {
+      this.$toast.add({
+        severity: "warn",
+        summary: `aviso`,
+        detail: `um usuario foi deletado da aplicação`,
+        life: 3000,
+      });
+      this.ListarTodos();
+    });
+    this.socketService.registerListener("update", "update", () => {
+      this.$toast.add({
+        severity: "warn",
+        summary: `aviso`,
+        detail: `os dados de um usuario foram alterados`,
+        life: 3000,
+      });
+      this.ListarTodos();
+    });
   },
 };
 </script>
