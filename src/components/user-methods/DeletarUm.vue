@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       email: "",
+      userEmail: localStorage.getItem('email')
     };
   },
   methods: {
@@ -50,6 +51,15 @@ export default {
         icon: "pi pi-exclamation-triangle",
         accept: () => {
           const authorization = `Bearer ${localStorage.getItem("token")}`;
+            if(this.email === this.userEmail){
+                  this.$toast.add({
+                  severity: "error",
+                  summary: `barrado `,
+                  detail: "você não pode deletar a sim mesmo",
+                  life: 3000,
+                });
+            }
+            else
           usuariosRequest
             .DeleteOne(
               { headers: { Authorization: authorization } },
@@ -96,6 +106,7 @@ export default {
             life: 3000,
           });
         },
+        
       });
     },
   },

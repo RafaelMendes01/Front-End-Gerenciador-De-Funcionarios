@@ -8,12 +8,29 @@
 </template>
 
 <script>
+import { SocketModule } from "@/services/Socket";
 export default {
   data(){
     return{
-      email: localStorage.getItem('email')
+      email: localStorage.getItem('email'),
+      SocketService: SocketModule
     }
-  }
+  },
+    mounted(){
+    this.SocketService.connect()
+    .registerListener(
+                "is-logged",
+                "is-logged",
+                (UserEmail = this.email) => {
+                this.$toast.add({
+                severity: "warn",
+                summary: "aviso",
+                detail: `um novo usuario acabou de logar`,
+                life: 3000,
+              });
+                }
+              );
+  },
 };
 </script>
 
