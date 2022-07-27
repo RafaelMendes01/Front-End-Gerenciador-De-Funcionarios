@@ -52,7 +52,7 @@
         />
         <ConfirmDialog></ConfirmDialog>
         <BtnButton
-          @click="create()"
+          @click="CreateUser()"
           label="Criar Usuario"
           icon="pi pi-check"
           iconPos="right"
@@ -80,7 +80,7 @@ export default {
   },
 
   methods: {
-    create() {
+    CreateUser() {
       this.$confirm.require({
         message: "realmente deseja continuar?",
         header: "Confirmação",
