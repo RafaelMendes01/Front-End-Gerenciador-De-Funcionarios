@@ -55,7 +55,7 @@ export default {
                   this.$toast.add({
                   severity: "error",
                   summary: `barrado `,
-                  detail: "você não pode deletar a sim mesmo",
+                  detail: "você não pode deletar a si mesmo",
                   life: 3000,
                 });
             }
