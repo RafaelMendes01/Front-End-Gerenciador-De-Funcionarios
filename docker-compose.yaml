@@ -7,7 +7,7 @@ services:
     tty: true
     networks: 
       - projeto-gerenciador-funcionarios
-    entrypoint: npm run serve
+    entrypoint: sh ./.docker/entrypoint.sh
     volumes: 
       - ./:/usr/front-end-sistema-gerenciador-de-funcionarios/app
     ports:
