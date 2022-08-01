@@ -63,13 +63,12 @@ export default {
                 this.email
               )
               .then((res) => {
-                // this.$toast.add({
-                //   severity: "success",
-                //   summary: "Confirmado",
-                //   detail: "Usuario deletado com sucesso",
-                //   life: 3000,
-                // });
-                console.log(res)
+                this.$toast.add({
+                  severity: "success",
+                  summary: "Confirmado",
+                  detail: "Usuario deletado com sucesso",
+                  life: 3000,
+                });
               })
               .catch((Error) => {
                 if (Error.code == "ERR_NETWORK") {
