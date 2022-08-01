@@ -20,14 +20,14 @@
           gap-3
         "
       >
-        <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-envelope" />
+        <span class="p-float-label">
           <InputText
             type="text"
-            placeholder="Digite o email do usuario"
             class="p-inputtext-lg"
             v-model="UserEmail"
+            id="email"
           />
+        <label for="email" class="text-lg"> <i class="pi pi-envelope mb-1" />&nbsp;Digite o email do usuario</label>
         </span>
         <BtnButton
           label="Pesquisar"
@@ -79,7 +79,7 @@ export default {
       this.$toast.add({
         severity: "success",
         summary: "Coluna reordenada",
-        life: 8080,
+        life: 3000,
       });
     },
     ListarUm() {

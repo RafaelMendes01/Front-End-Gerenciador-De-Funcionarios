@@ -16,6 +16,7 @@ import ConfirmDialog from 'primevue/confirmdialog';
 import Toast from 'primevue/toast';
 import Tooltip from 'primevue/tooltip';
 import Menu from 'primevue/menu';
+import Password from 'primevue/password';
 import 'bootstrap/dist/css/bootstrap.css'
 import '/node_modules/primeflex/primeflex.css'
 import 'primevue/resources/themes/lara-dark-purple/theme.css'     
@@ -23,7 +24,7 @@ import 'primevue/resources/primevue.min.css'
 import 'primeicons/primeicons.css'
 
 const app = createApp(App)
-app.use(PrimeVue)
+app.use(PrimeVue,  {ripple: true})
 app.use(ConfirmationService)
 app.use(ToastService)
 app.use(Router)
@@ -38,6 +39,7 @@ app.component('PToast', Toast)
 app.component('PDropdown', Dropdown)
 app.component('BAvatar', Avatar)
 app.component('BMenu', Menu)
+app.component('PPassword', Password)
 app.directive('tooltip', Tooltip)
 
 app.mount('#app')

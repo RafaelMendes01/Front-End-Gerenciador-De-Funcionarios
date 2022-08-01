@@ -10,39 +10,28 @@
         justify-content-center
         align-items-center
         flex-column
-        gap-3
+        gap-4
       "
     >
-      <span class="p-float-label p-input-icon-left">
-        <i class="pi pi-user" />
+      <span class="p-float-label">
         <InputText
           id="username"
           type="text"
-          placeholder="Digite seu nome"
           class="p-inputtext-lg"
           v-model="User.name"
         />
+        <label for="email" class="text-lg"> <i class="pi pi-user" />&nbsp;Digite seu nome</label>
       </span>
-      <span class="p-float-label p-input-icon-left">
-        <i class="pi pi-envelope" />
+      <span class="p-float-label">
         <InputText
           id="email"
           type="email"
-          placeholder="Digite seu email"
           class="p-inputtext-lg"
           v-model="User.email"
         />
+        <label for="email" class="text-lg" > <i class="pi pi-envelope" />&nbsp;Digite seu email</label>
       </span>
-      <span class="p-float-label p-input-icon-left">
-        <i class="pi pi-key" />
-        <InputText
-          id="password"
-          type="password"
-          placeholder="Digite sua senha"
-          class="p-inputtext-lg"
-          v-model="User.password"
-        />
-      </span>
+         <PPassword v-model="User.password" placeholder="Digite sua senha" class="p-inputtext-lg" id="password" toggleMask/>
       <div class="flex gap-3">
         <PDropdown
           v-model="User.role"
@@ -118,7 +107,24 @@ export default {
                   detail: `${Error.response.data.message}`,
                   life: 3000,
                 });
-              } else {
+              } 
+              else if (Error.code == "ERR_BAD_RESPONSE" && Error.response.status == "500") {
+                this.$toast.add({
+                  severity: "error",
+                  summary: `Email duplicado`,
+                  detail: "Esse email ja foi cadastrado na aplicação",
+                  life: 3000,
+                });
+              } 
+              else if (Error.code == "ERR_BAD_REQUEST" && Error.response.status == "400"){
+                this.$toast.add({
+                  severity: "error",
+                  summary: `Dados incorretos`,
+                  detail: "Preencha todos os campo da aplicação ou envie dados validos",
+                  life: 3000,
+                });
+              }
+              else {
                 this.$toast.add({
                   severity: "error",
                   summary: `${Error.code}`,
