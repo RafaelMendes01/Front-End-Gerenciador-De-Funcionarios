@@ -13,14 +13,12 @@
         gap-4
       "
     >
-      <span class="p-float-label p-input-icon-left">
-        <i class="pi pi-envelope" />
-        <InputText
-          id="email"
-          type="email"
-          placeholder="Digite seu email"
-          v-model="email"
-        />
+      <span class="p-float-label">
+        <InputText id="email" type="email" v-model="email" />
+        <label for="email">
+          <i class="pi pi-envelope mb-1" />&nbsp;Digite o email do
+          usuario</label
+        >
       </span>
       <ConfirmDialog></ConfirmDialog>
       <BtnButton
@@ -40,7 +38,7 @@ export default {
   data() {
     return {
       email: "",
-      userEmail: localStorage.getItem('email')
+      userEmail: localStorage.getItem("email"),
     };
   },
   methods: {
@@ -51,52 +49,62 @@ export default {
         icon: "pi pi-exclamation-triangle",
         accept: () => {
           const authorization = `Bearer ${localStorage.getItem("token")}`;
-            if(this.email === this.userEmail){
-                  this.$toast.add({
-                  severity: "error",
-                  summary: `barrado `,
-                  detail: "você não pode deletar a si mesmo",
-                  life: 3000,
-                });
-            }
-            else
-          usuariosRequest
-            .DeleteOne(
-              { headers: { Authorization: authorization } },
-              this.email
-            )
-            .then((res) => {
-              this.$toast.add({
-                severity: "success",
-                summary: "Confirmado",
-                detail: "Usuario deletado com sucesso",
-                life: 3000,
-              });
-            })
-            .catch((Error) => {
-              if (Error.code == "ERR_NETWORK") {
-                this.$toast.add({
-                  severity: "error",
-                  summary: `Problemas Tecnicos `,
-                  detail: "Servidor Indisponivel",
-                  life: 3000,
-                });
-              } else if (Error.response.data.statusCode == "401") {
-                this.$toast.add({
-                  severity: "error",
-                  summary: `${Error.response.data.statusCode}`,
-                  detail: `${Error.response.data.message}`,
-                  life: 3000,
-                });
-              } else {
-                this.$toast.add({
-                  severity: "error",
-                  summary: `${Error.code}`,
-                  detail: `${Error}`,
-                  life: 3000,
-                });
-              }
+          if (this.email === this.userEmail) {
+            this.$toast.add({
+              severity: "error",
+              summary: `barrado `,
+              detail: "você não pode deletar a si mesmo",
+              life: 3000,
             });
+          } else
+            usuariosRequest
+              .DeleteOne(
+                { headers: { Authorization: authorization } },
+                this.email
+              )
+              .then((res) => {
+                // this.$toast.add({
+                //   severity: "success",
+                //   summary: "Confirmado",
+                //   detail: "Usuario deletado com sucesso",
+                //   life: 3000,
+                // });
+                console.log(res)
+              })
+              .catch((Error) => {
+                if (Error.code == "ERR_NETWORK") {
+                  this.$toast.add({
+                    severity: "error",
+                    summary: `Problemas Tecnicos `,
+                    detail: "Servidor Indisponivel",
+                    life: 3000,
+                  });
+                } else if (
+                  Error.code == "ERR_BAD_REQUEST" &&
+                  Error.response.status == "404"
+                ) {
+                  this.$toast.add({
+                    severity: "error",
+                    summary: `Dados faltando`,
+                    detail: "Digite o email que gostaria de remover",
+                    life: 3000,
+                  });
+                } else if (Error.response.data.statusCode == "401") {
+                  this.$toast.add({
+                    severity: "error",
+                    summary: `${Error.response.data.statusCode}`,
+                    detail: `${Error.response.data.message}`,
+                    life: 3000,
+                  });
+                } else {
+                  this.$toast.add({
+                    severity: "error",
+                    summary: `${Error.code}`,
+                    detail: `${Error}`,
+                    life: 3000,
+                  });
+                }
+              });
         },
         reject: () => {
           this.$toast.add({
@@ -106,7 +114,6 @@ export default {
             life: 3000,
           });
         },
-        
       });
     },
   },

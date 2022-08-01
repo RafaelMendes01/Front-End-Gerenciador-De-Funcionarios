@@ -88,7 +88,7 @@ export default {
 
 <style scoped>
 .form-group {
-  background-color: #05103d;
+  background-image: linear-gradient(to bottom right, #05103d 60%,#0a1a52);
   height: 100vh;
 }
 .input {
@@ -96,12 +96,19 @@ export default {
   border-radius: 20px;
   border: 2px solid #cf227a;
   background-color: #0e1b47;
-  width: 70%;
+  width: 65%;
   height: 2.5rem;
+  transition: all 0.5s;
 }
 .input::placeholder {
   color: #cf227a;
   opacity: 0.9;
+
+}
+.input:focus{
+  width: 70%;
+  outline: none;
+  height: 2.6rem;
 }
 .icon {
   color: #cf227a;
@@ -109,7 +116,7 @@ export default {
 }
 .logo {
   width: 100%;
-  height: 15%;
+  height: 14%;
   margin-top: 30%;
 }
 .btn-login {
@@ -122,8 +129,8 @@ export default {
   transition: filter 0.5s, scale 0.5s;
 }
 .btn-login:hover {
-  filter: brightness(1.8);
-  scale: 1.1;
+  filter: brightness(1.3);
+  scale: 1.15;
 }
 .btn-field {
   height: 6%;

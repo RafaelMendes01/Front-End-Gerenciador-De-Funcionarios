@@ -19,14 +19,14 @@
           gap-3
         "
       >
-        <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-envelope" />
+        <span class="p-float-label">
           <InputText
             type="text"
-            placeholder="Digite o email do usuario"
             class="p-inputtext-lg"
             v-model="oldEmail"
+            id="email"
           />
+            <label for="email" class="text-lg"> <i class="pi pi-envelope mb-1" />&nbsp;Digite o email do usuario</label>
         </span>
         <ConfirmDialog></ConfirmDialog>
         <BtnButton
@@ -48,8 +48,6 @@
           gap-2
         "
       >
-        <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-user" />
           <InputText
             id="username"
             type="text"
@@ -57,9 +55,6 @@
             class="p-inputtext-lg"
             v-model="User.name"
           />
-        </span>
-        <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-envelope" />
           <InputText
             id="email"
             type="email"
@@ -67,17 +62,7 @@
             class="p-inputtext-lg"
             v-model="User.email"
           />
-        </span>
-        <span class="p-float-label p-input-icon-left">
-          <i class="pi pi-key" />
-          <InputText
-            id="password"
-            type="password"
-            placeholder="Nova senha"
-            class="p-inputtext-lg"
-            v-model="User.password"
-          />
-        </span>
+         <PPassword v-model="User.password" placeholder="Digite sua senha" class="p-inputtext-lg" id="password" toggleMask/>
         <PDropdown
           v-model="User.role"
           :options="roles"
@@ -147,7 +132,24 @@ export default {
                   detail: `${Error.response.data.message}`,
                   life: 3000,
                 });
-              } else {
+              } 
+              else if (Error.code == "ERR_BAD_REQUEST" && Error.response.status == "404") {
+                this.$toast.add({
+                  severity: "error",
+                  summary: `Email inexistente`,
+                  detail: "Preencha o campo de email",
+                  life: 3000,
+                });
+              } 
+              else if (Error.code == "ERR_BAD_REQUEST" && Error.response.status == "400"){
+                this.$toast.add({
+                  severity: "error",
+                  summary: `Dados incorretos`,
+                  detail: "Preencha todos os campo da aplicação ou envie dados validos",
+                  life: 3000,
+                });
+              }
+              else {
                 this.$toast.add({
                   severity: "error",
                   summary: `${Error.code}`,
