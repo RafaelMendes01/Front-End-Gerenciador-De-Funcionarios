@@ -77,8 +77,10 @@ export default {
       });
     },
   },
-  mounted() {
-    this.ListarTodos();
+  created(){
+     this.ListarTodos();
+  },
+  updated() {
     this.socketService.registerListener("new-user", "new-user", () => {
       this.$toast.add({
         severity: "warn",
@@ -104,8 +106,8 @@ export default {
         detail: `os dados de um usuario foram alterados`,
         life: 3000,
       });
-      this.ListarTodos();
     });
+    this.ListarTodos();
   },
 };
 </script>
