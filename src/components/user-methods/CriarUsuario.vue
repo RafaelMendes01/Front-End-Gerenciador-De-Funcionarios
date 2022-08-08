@@ -45,7 +45,7 @@
           label="Criar Usuario"
           icon="pi pi-check"
           iconPos="right"
-          class="p-button-success p-button-rounded p-button-sm"
+          class="p-button-success p-button-rounded p-button-sm btn-button"
         />
       </div>
     </div>
@@ -158,5 +158,10 @@ export default {
   height: 90%;
   width: 95%;
   color: #cf227a;
+}
+@media only screen and (max-width: 400px) {
+  .btn-button{
+    height: 90%;
+  }
 }
 </style>

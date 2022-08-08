@@ -18,6 +18,7 @@
           surface-border
           border-noround-right
           gap-3
+          email-field
         "
       >
         <span class="p-float-label">
@@ -128,5 +129,16 @@ export default {
   height: 90%;
   width: 95%;
   color: #cf227a;
+}
+@media only screen and (max-width: 590px) {
+  .geral-field{
+    flex-direction: column !important;
+  }
+  .content-field{
+    flex-direction: column !important;
+  }
+  .email-field{
+    border-right: none !important;
+  }
 }
 </style>
