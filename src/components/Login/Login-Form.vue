@@ -61,10 +61,19 @@ export default {
               this.$toast.add({
                 severity: "error",
                 summary: `${Error.response.data.statusCode}`,
-                detail: `${Error.response.data.message}`,
+                detail: `Dados Incorretos`,
                 life: 3000,
               });
-            } else {
+            } 
+            else if (Error.code == "ERR_BAD_REQUEST"){
+              this.$toast.add({
+                severity: "error",
+                summary: `Dados faltando`,
+                detail: `Digite todos os campos corretamente`,
+                life: 3000,
+              });
+            }
+            else {
               this.$toast.add({
                 severity: "error",
                 summary: `${Error.code}`,
