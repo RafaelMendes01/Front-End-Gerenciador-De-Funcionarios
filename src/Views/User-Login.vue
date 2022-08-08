@@ -42,4 +42,12 @@ export default {
   width: 30%;
   animation: init 1s ease-in-out;
 }
+@media only screen and (max-width: 700px) {
+  .background-img {
+    width: 0%;
+  }
+  .form{
+    width: 100%;
+  }
+}
 </style>

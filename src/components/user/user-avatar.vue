@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-content-end align-items-center avatar">
+  <div class="flex justify-content-end align-items-start avatar mt-2">
     <BAvatar
       :label="letra"
       :style="`background-color: ${color}`"

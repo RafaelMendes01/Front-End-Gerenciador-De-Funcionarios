@@ -2,7 +2,7 @@
   <div class="flex justify-content-center align-items-center geral-field">
     <div class="content-field flex justify-content-center align-items-center flex-column">
        <h2>Bem Vindo!!!😃</h2>
-       <h4>Para realizar suas operações clique no botao do canto superior esquerdo da tela</h4>
+       <h4 class="text-center">Para realizar suas operações clique no botao do canto superior esquerdo da tela</h4>
     </div>
   </div>
 </template>
