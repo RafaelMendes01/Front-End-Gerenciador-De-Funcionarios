@@ -150,6 +150,14 @@ export default {
                   life: 3000,
                 });
               }
+              else if (Error.code == "ERR_BAD_RESPONSE" && Error.response.status == "500"){
+                this.$toast.add({
+                  severity: "error",
+                  summary: `Esse email ja existe`,
+                  detail: "Voce não pode copiar o email de um usuario ja cadastrado",
+                  life: 3000,
+                });
+              }
               else {
                 this.$toast.add({
                   severity: "error",
