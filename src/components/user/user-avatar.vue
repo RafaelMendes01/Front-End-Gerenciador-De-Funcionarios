@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-content-end align-items-start avatar mt-2">
+  <div class="flex justify-content-end align-items-start avatar">
     <BAvatar
       :label="letra"
       :style="`background-color: ${color}`"
@@ -10,11 +10,12 @@
       aria-controls="overlay_menu"
       class="cursor-pointer"
     />
-      <BMenu id="overlay_menu" ref="menu" :model="items" :popup="true" />
+    <BMenu id="overlay_menu" ref="menu" :model="items" :popup="true" />
   </div>
 </template>
 
 <script>
+import usuarios from "../../services/appRequest";
 export default {
   data() {
     return {
@@ -22,13 +23,18 @@ export default {
       color: "",
       items: [
         {
-          label: "Logout",
-          icon: "pi pi-sign-out",
-          command: () => {
-            localStorage.removeItem("token");
-            localStorage.removeItem("email");
-            window.location.replace("/");
-          },
+          label: "Cargo",
+          items: [
+            {
+              label: "Logout",
+              icon: "pi pi-sign-out",
+              command: () => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("email");
+                window.location.replace("/");
+              },
+            },
+          ],
         },
       ],
     };
@@ -46,18 +52,33 @@ export default {
     } else {
       this.color = "#ff7700";
     }
+    const authorization = `Bearer ${localStorage.getItem("token")}`;
+     usuarios
+        .ListUsers({ headers: { Authorization: authorization } })
+        .then((resposta) => {
+         this.items[0].label = 'ADMIN';
+        })
+        .catch((Error) => {
+          this.items[0].label = 'USER'
+        })
   },
   methods: {
-     toggle(event) {
-            this.$refs.menu.toggle(event);
-        },
-  }
+    toggle(event) {
+      this.$refs.menu.toggle(event);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .avatar {
-  width: 90%;
+  width: 47%;
   color: #ffffff;
+}
+@media only screen and (max-width: 450px) {
+  .avatar {
+  width: 36%;
+  color: #ffffff;
+}
 }
 </style>

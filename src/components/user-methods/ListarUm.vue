@@ -34,7 +34,7 @@
           label="Pesquisar"
           icon="pi pi-search"
           iconPos="right"
-          class="p-button-info p-button-rounded p-button-sm"
+          class="p-button-primary p-button-rounded p-button-sm"
           @click="ListarUm()"
         />
       </div>
@@ -57,9 +57,9 @@
           @columnReorder="onColReorder"
           :row="1"
         >
-          <PColumn field="nome" header="nome"></PColumn>
-          <PColumn field="email" header="email"></PColumn>
-          <PColumn field="role" header="cargo"></PColumn>
+          <PColumn field="nome" header="Nome"></PColumn>
+          <PColumn field="email" header="Email do usuario"></PColumn>
+          <PColumn field="role" header="Cargo"></PColumn>
         </DataTable>
       </div>
     </div>

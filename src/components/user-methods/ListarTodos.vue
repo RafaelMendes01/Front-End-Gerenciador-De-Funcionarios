@@ -17,10 +17,11 @@
         :rows="6"
         :reorderableColumns="true"
         @columnReorder="onColReorder"
+        id="DataTable"
       >
-        <PColumn field="nome" header="nome"></PColumn>
-        <PColumn field="email" header="email"></PColumn>
-        <PColumn field="role" header="cargo"></PColumn>
+        <PColumn field="nome" header="Nome"></PColumn>
+        <PColumn field="email" header="Email do usuario"></PColumn>
+        <PColumn field="role" header="Cargo"></PColumn>
       </DataTable>
     </div>
   </div>
@@ -108,6 +109,13 @@ export default {
       });
     });
     this.ListarTodos();
+    const table = document.getElementById('DataTable');
+    if(window.innerWidth <= 450){
+      table.classList.add("p-datatable-sm");
+    }
+    else{
+      table.classList.remove("p-datatable-sm");
+    }
   },
 };
 </script>

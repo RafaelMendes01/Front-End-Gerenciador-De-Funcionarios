@@ -45,7 +45,7 @@
           label="Criar Usuario"
           icon="pi pi-check"
           iconPos="right"
-          class="p-button-success p-button-rounded p-button-sm btn-button"
+          class="p-button-primary p-button-rounded p-button-sm btn-button"
         />
       </div>
     </div>
@@ -71,7 +71,7 @@ export default {
   methods: {
     CreateUser() {
       this.$confirm.require({
-        message: "realmente deseja continuar?",
+        message: "Realmente deseja continuar?",
         header: "Confirmação",
         icon: "pi pi-exclamation-triangle",
         accept: () => {

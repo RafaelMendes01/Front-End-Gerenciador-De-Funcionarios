@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <div class="background-img d-flex p-0 m-o"></div>
+    <div class="background-img d-flex p-0 m-0" title="imagem da tela de login"></div>
     <div class="form">
       <meu-form></meu-form>
     </div>
