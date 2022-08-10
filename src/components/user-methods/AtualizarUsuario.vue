@@ -34,7 +34,7 @@
           label="Atualizar"
           icon="pi pi-pencil"
           iconPos="right"
-          class="p-button-warning p-button-rounded p-button-sm"
+          class="p-button-primary p-button-rounded p-button-sm"
           @click="updateUser()"
         />
       </div>
@@ -93,7 +93,7 @@ export default {
   methods: {
     updateUser() {
       this.$confirm.require({
-        message: "realmente deseja continuar?",
+        message: "Realmente deseja continuar?",
         header: "Confirmação",
         icon: "pi pi-exclamation-triangle",
         accept: () => {

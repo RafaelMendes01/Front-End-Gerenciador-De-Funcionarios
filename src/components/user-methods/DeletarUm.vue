@@ -26,7 +26,7 @@
         label="Deletar Usuario"
         icon="pi pi-trash"
         iconPos="right"
-        class="p-button-danger p-button-rounded p-button-sm"
+        class="p-button-primary p-button-rounded p-button-sm"
       />
     </div>
   </div>
@@ -44,7 +44,7 @@ export default {
   methods: {
     deleteUser() {
       this.$confirm.require({
-        message: "realmente deseja continuar?",
+        message: "Realmente deseja continuar?",
         header: "Confirmação",
         icon: "pi pi-exclamation-triangle",
         accept: () => {

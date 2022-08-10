@@ -9,7 +9,7 @@
         <input
           v-model="user.email"
           type="email"
-          placeholder="  Digite seu email"
+          placeholder="Digite seu email"
           class="input"
         />
       </div>
@@ -18,7 +18,7 @@
         <input
           v-model="user.password"
           type="password"
-          placeholder="  Digite sua senha"
+          placeholder="Digite sua senha"
           class="input"
         />
       </div>
@@ -108,6 +108,7 @@ export default {
   width: 65%;
   height: 2.5rem;
   transition: all 0.5s;
+  padding-left: 17px !important;
 }
 .input::placeholder {
   color: #cf227a;
