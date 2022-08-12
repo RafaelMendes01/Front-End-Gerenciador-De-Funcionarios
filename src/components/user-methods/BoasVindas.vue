@@ -28,7 +28,25 @@ export default {
     };
   },
   mounted() {
-    this.SocketService.connect()
+    this.SocketService.connect().registerListener(
+      "is-logged",
+      "is-logged",
+      (data) => {
+        const MyEmail = localStorage.getItem("email");
+        if (MyEmail == data.email.user.email) {
+          this.$toast.add({
+            severity: "warn",
+            summary: "Aviso",
+            detail: "Você sera deslogado em 3 segundos",
+            life: 3000,
+          });
+          setTimeout(() => {
+            localStorage.clear()
+            window.location.replace("/");
+          }, 3000);
+        }
+      }
+    );
   },
 };
 </script>

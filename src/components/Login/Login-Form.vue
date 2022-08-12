@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { SocketModule } from "@/services/Socket";
 export default {
   data() {
     return {
@@ -42,8 +43,7 @@ export default {
   methods: {
     handleSubmitLogin() {
       const email = this.user.email;
-      const lastEmail = localStorage.getItem("email");
-      if (email !== lastEmail) {
+      if (email) {
         this.$store
           .dispatch("handleSubmitLogin", this.user)
           .then((res) => {
@@ -64,16 +64,14 @@ export default {
                 detail: `Dados Incorretos`,
                 life: 3000,
               });
-            } 
-            else if (Error.code == "ERR_BAD_REQUEST"){
+            } else if (Error.code == "ERR_BAD_REQUEST") {
               this.$toast.add({
                 severity: "error",
                 summary: `Dados faltando`,
                 detail: `Digite todos os campos corretamente`,
                 life: 3000,
               });
-            }
-            else {
+            } else {
               this.$toast.add({
                 severity: "error",
                 summary: `${Error.code}`,
@@ -82,13 +80,6 @@ export default {
               });
             }
           });
-      } else {
-        this.$toast.add({
-          severity: "error",
-          summary: `Erro`,
-          detail: "Esse usuario ja esta logado",
-          life: 3000,
-        });
       }
     },
   },
@@ -97,7 +88,7 @@ export default {
 
 <style scoped>
 .form-group {
-  background-image: linear-gradient(to bottom right, #05103d 60%,#0a1a52);
+  background-image: linear-gradient(to bottom right, #05103d 60%, #0a1a52);
   height: 100vh;
 }
 .input {
@@ -113,9 +104,8 @@ export default {
 .input::placeholder {
   color: #cf227a;
   opacity: 0.9;
-
 }
-.input:focus{
+.input:focus {
   width: 70%;
   outline: none;
   height: 2.6rem;
