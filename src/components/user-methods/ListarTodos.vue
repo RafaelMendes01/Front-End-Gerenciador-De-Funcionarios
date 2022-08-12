@@ -78,8 +78,8 @@ export default {
       });
     },
   },
-  created(){
-     this.ListarTodos();
+  created() {
+    this.ListarTodos();
   },
   updated() {
     this.socketService.registerListener("new-user", "new-user", () => {
@@ -91,15 +91,24 @@ export default {
       });
       this.ListarTodos();
     });
-    this.socketService.registerListener("removed-user", "removed-user", () => {
-      this.$toast.add({
-        severity: "warn",
-        summary: `aviso`,
-        detail: `um usuario foi deletado da aplicação`,
-        life: 3000,
-      });
-      this.ListarTodos();
-    });
+    this.socketService.registerListener(
+      "removed-user",
+      "removed-user",
+      (data) => {
+        const MyEmail = localStorage.getItem("email");
+        if (MyEmail == data) {
+          localStorage.clear();
+          window.location.replace("/");
+        }
+        this.$toast.add({
+          severity: "warn",
+          summary: `aviso`,
+          detail: `um usuario foi deletado da aplicação`,
+          life: 3000,
+        });
+        this.ListarTodos();
+      }
+    );
     this.socketService.registerListener("update", "update", () => {
       this.$toast.add({
         severity: "warn",
@@ -109,11 +118,10 @@ export default {
       });
     });
     this.ListarTodos();
-    const table = document.getElementById('DataTable');
-    if(window.innerWidth <= 450){
+    const table = document.getElementById("DataTable");
+    if (window.innerWidth <= 450) {
       table.classList.add("p-datatable-sm");
-    }
-    else{
+    } else {
       table.classList.remove("p-datatable-sm");
     }
   },

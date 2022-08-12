@@ -29,8 +29,7 @@ export default {
               label: "Logout",
               icon: "pi pi-sign-out",
               command: () => {
-                localStorage.removeItem("token");
-                localStorage.removeItem("email");
+                localStorage.clear()
                 window.location.replace("/");
               },
             },
